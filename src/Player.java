@@ -1,41 +1,70 @@
-import java.awt.*;
+import java.util.Objects;
 
 public class Player {
-    int col = 10;
-    int row = 10;
+    int headcol = 10;
+    int headrow = 9;
+    int footcol = 10;
+    int footrow = 10;
     GUI gui;
 
     public Player(GUI gui){
         this.gui = gui;
     }
 
-
-    public int getCol(){
-        return col;
+    public int getHeadCol(){
+        return headcol;
     }
-    public int getRow(){
-        return row;
+
+    public int getFootCol(){
+        return footcol;
+    }
+
+    public int getHeadRow(){
+        return headrow;
+    }
+
+    public int getFootRow(){
+        return footrow;
+    }
+
+    public void movePlayer(){
+        if (Objects.equals(gui.getMoveDirection(),"right"))
+            movePlayerRight();
+        else if (Objects.equals(gui.getMoveDirection(),"left"))
+            movePlayerLeft();
+        else if (Objects.equals(gui.getMoveDirection(),"up"))
+            movePlayerUp();
+        else if (Objects.equals(gui.getMoveDirection(),"down"))
+            movePlayerDown();
     }
 
     public void movePlayerRight(){
-        if (col+1 !=gui.pixels[0].length)
-        col++;
+        if (headcol +1 !=gui.pixels[0].length) {
+            headcol++;
+            footcol++;
+        }
     }
 
     public void movePlayerLeft(){
-        if (col-1 != -1)
-        col--;
+        if (headcol -1 != -1) {
+            headcol--;
+            footcol--;
+        }
     }
 
     public void movePlayerDown(){
-        if (row+1 !=gui.pixels.length)
-        row++;
+        if (footrow +1 !=gui.pixels.length) {
+            footrow++;
+            headrow++;
+        }
+
     }
 
-    public void movePlayerUp(){
-        if (row-1 != -1)
-        row--;
+    public void movePlayerUp() {
+        if (headrow - 1 != -1) {
+            headrow--;
+            footrow--;
+        }
     }
-
-
 }
+

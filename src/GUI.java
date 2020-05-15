@@ -11,12 +11,16 @@ public class GUI {
     GamePixel[][] pixels = new GamePixel[18][32];
     Player player = new Player(this);
     String[][] pixelcolor = new String[18][32];
+    Boolean moveright = false;
+    Boolean moveup = false;
+    Boolean moveleft = false;
+    Boolean movedown = false;
 
 
     public GUI() {
         setColorBackGround();
         buildGameWindow();
-        Timer timer = new Timer(this);
+        Timer timer = new Timer(this, player);
         timer.tick();
     }
 
@@ -52,6 +56,7 @@ public class GUI {
     }
 
     private void addKeyListenerToFrame() {
+
         frame.addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent e) {
@@ -59,26 +64,49 @@ public class GUI {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                //if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                //    player.movePlayerRight();
+                //}
+                //if (e.getKeyCode() == KeyEvent.VK_UP) {
+                //    player.movePlayerUp();
+                //}
+                //if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                //    player.movePlayerLeft();
+                //}
+                //if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                //    player.movePlayerDown();
+                //}
+
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    player.movePlayerRight();
-                    insertPlayerIntoColor();
+                    moveright = true;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    player.movePlayerUp();
-                    insertPlayerIntoColor();
+                    moveup = true;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    player.movePlayerLeft();
-                    insertPlayerIntoColor();
+                    moveleft = true;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    player.movePlayerDown();
-                    insertPlayerIntoColor();
+                    movedown = true;
                 }
+
+
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    moveright = false;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    moveup = false;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    moveleft = false;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    movedown = false;
+                }
             }
         });
     }
@@ -104,6 +132,23 @@ public class GUI {
     }
 
     public void insertPlayerIntoColor(){
-        pixelcolor[player.getRow()][player.getCol()]=("#6365ff");
+        pixelcolor[player.getHeadRow()][player.getHeadCol()]=("#6365ff");
+        pixelcolor[player.getFootRow()][player.getFootCol()]=("#6365ff");
+
+    }
+
+    public String getMoveDirection(){
+        String movedirection = null;
+
+        if (moveright)
+            movedirection = "right";
+        else if (moveleft)
+            movedirection = "left";
+        else if (moveup)
+            movedirection = "up";
+        else if (movedown)
+            movedirection = "down";
+
+        return movedirection;
     }
 }
