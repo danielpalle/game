@@ -1,70 +1,66 @@
 import java.util.Objects;
 
 public class Player {
-    int headcol = 10;
-    int headrow = 9;
-    int footcol = 10;
-    int footrow = 10;
-    GUI gui;
+    private int playerxpos = 155;
+    private int playerypos = 124;
 
-    public Player(GUI gui){
-        this.gui = gui;
+    Boolean moveright = false;
+    Boolean moveup = false;
+    Boolean moveleft = false;
+    Boolean movedown = false;
+
+    public Player(){
     }
 
-    public int getHeadCol(){
-        return headcol;
-    }
-
-    public int getFootCol(){
-        return footcol;
-    }
-
-    public int getHeadRow(){
-        return headrow;
-    }
-
-    public int getFootRow(){
-        return footrow;
-    }
 
     public void movePlayer(){
-        if (Objects.equals(gui.getMoveDirection(),"right"))
+        if (Objects.equals(getMoveDirection(),"right"))
             movePlayerRight();
-        else if (Objects.equals(gui.getMoveDirection(),"left"))
+        else if (Objects.equals(getMoveDirection(),"left"))
             movePlayerLeft();
-        else if (Objects.equals(gui.getMoveDirection(),"up"))
+        else if (Objects.equals(getMoveDirection(),"up"))
             movePlayerUp();
-        else if (Objects.equals(gui.getMoveDirection(),"down"))
+        else if (Objects.equals(getMoveDirection(),"down"))
             movePlayerDown();
     }
 
+    public String getMoveDirection(){
+        String movedirection = null;
+
+        if (moveright) {
+            movedirection = "right";}
+        else if (moveleft)
+            movedirection = "left";
+        else if (moveup)
+            movedirection = "up";
+        else if (movedown)
+            movedirection = "down";
+
+        return movedirection;
+    }
+
     public void movePlayerRight(){
-        if (headcol +1 !=gui.pixels[0].length) {
-            headcol++;
-            footcol++;
-        }
+        if (!(playerxpos + 2 >= 630))
+        playerxpos += 2;
     }
 
     public void movePlayerLeft(){
-        if (headcol -1 != -1) {
-            headcol--;
-            footcol--;
-        }
+        if (!(playerxpos - 2 < 0))
+        playerxpos -= 2;
     }
 
     public void movePlayerDown(){
-        if (footrow +1 !=gui.pixels.length) {
-            footrow++;
-            headrow++;
-        }
-
     }
 
     public void movePlayerUp() {
-        if (headrow - 1 != -1) {
-            headrow--;
-            footrow--;
-        }
+    }
+
+    public int getPlayerXPos(){
+        return playerxpos;
+    }
+
+    public int getPlayerYPos(){
+        return playerypos;
     }
 }
 

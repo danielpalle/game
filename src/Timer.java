@@ -1,25 +1,20 @@
 public class Timer {
     java.util.Timer timer = new java.util.Timer();
-    int tickperiod = 10;
-    GUI gui;
-    Player player;
-    int i = 0;
+    int tickperiod = 20;
+    GameControl gamecontrol;
 
-    public Timer(GUI gui, Player player){
-        this.gui = gui;
-        this.player = player;
+    public Timer(GameControl gamecontrol){
+        this.gamecontrol = gamecontrol;
     }
-    public void tick() {
-        java.util.TimerTask task = new java.util.TimerTask() {
-            @Override
-            public void run() {
-                gui.setColorBackGround();
-                player.movePlayer();
-                gui.insertPlayerIntoColor();
-                gui.renderScreen();
-                i++;
-            }
-        };
-        timer.schedule(task, tickperiod, tickperiod);
+
+    public void startTimer() {
+       java.util.TimerTask task = new java.util.TimerTask() {
+           @Override
+           public void run() {
+                gamecontrol.tick();
+           }
+       };
+       timer.schedule(task, tickperiod, tickperiod);
     }
+
 }
