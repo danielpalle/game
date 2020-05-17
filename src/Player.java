@@ -9,10 +9,6 @@ public class Player {
     Boolean moveleft = false;
     Boolean movedown = false;
 
-    public Player(){
-    }
-
-
     public void movePlayer(){
         if (Objects.equals(getMoveDirection(),"right"))
             movePlayerRight();

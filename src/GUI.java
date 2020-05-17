@@ -14,7 +14,7 @@ public class GUI {
 
     public GUI(Player player) throws IOException {
         this.player = player;
-        pixelcanvas = new PixelCanvas(player);
+        pixelcanvas = new PixelCanvas(this, player);
         buildGameWindow();
     }
 
@@ -80,6 +80,7 @@ public class GUI {
         pixelcanvas.paintBackgroundToWorld();
         pixelcanvas.paintCharacterToWorld();
         pixelcanvas.paintWorldToScreen();
+        pixelcanvas.moveCameraWithPlayer();
         pixelcanvas.repaint();
     }
 }

@@ -7,20 +7,22 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class PixelCanvas extends JPanel {
+    GUI gui;
     Player player;
-    private static final int REALWIDTH = 960;
-    private static final int REALHEIGHT = 540;
-    public static final int gamepixelwidth = 320;
-    public static final int gamepixelheight = 180;
-    public static final int backgroundpixelwidth = 640;
-    public static final int backgroundpixelheight = 180;
-    public static String[][] background = new String[backgroundpixelheight][backgroundpixelwidth];
-    public static String[][] world = new String[backgroundpixelheight][backgroundpixelwidth];
-    static String[][] gamescreen = new String[gamepixelheight][gamepixelwidth];
-    static String[][] character = new String[18][10];
-    static int worldxposition = 0;
+    private final int REALWIDTH = 960;
+    private final int REALHEIGHT = 540;
+    private final int gamepixelwidth = 320;
+    private final int gamepixelheight = 180;
+    private final int backgroundpixelwidth = 640;
+    private final int backgroundpixelheight = 180;
+    String[][] background = new String[backgroundpixelheight][backgroundpixelwidth];
+    String[][] world = new String[backgroundpixelheight][backgroundpixelwidth];
+    String[][] gamescreen = new String[gamepixelheight][gamepixelwidth];
+    String[][] character = new String[18][10];
+    private int worldxposition = 0;
 
-    public PixelCanvas(Player player) throws IOException {
+    public PixelCanvas(GUI gui, Player player) throws IOException {
+        this.gui = gui;
         this.player = player;
         setBackgroundFromFile();
         setCharacterFromFile();
@@ -77,11 +79,10 @@ public class PixelCanvas extends JPanel {
     public void paintBackgroundToWorld() {
         for (int i = 0, s = 0; i< backgroundpixelheight; i++, s++) {
             for (int j = 0; j < backgroundpixelwidth; j++, s++) {
-                world[i][j] = PixelCanvas.background[i][j];
+                world[i][j] = background[i][j];
             }
         }
     }
-
 
     public void paintCharacterToWorld() {
         for (int i = 0, y = player.getPlayerYPos(); i < character.length; i++, y++) {
@@ -98,7 +99,6 @@ public class PixelCanvas extends JPanel {
                     gamescreen[y][x] = world[i][j+worldxposition];
             }
         }
-        moveCameraWithPlayer();
     }
 
     public int getPlayerDistanceFromLeftBorder(){
