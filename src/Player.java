@@ -1,4 +1,5 @@
 public class Player {
+    PixelCanvas pixelcanvas;
     private double playerxpos = 155;
     private double playerypos = 114;
     static double playerxspeed = 0;
@@ -8,8 +9,10 @@ public class Player {
     public void movePlayer(){
         playerxpos += playerxspeed;
 
-        if (!((playerypos + playeryspeed)>124))
-        playerypos += playeryspeed;
+        if (!((pixelcanvas.getCollisionMapValue(((int) Math.round(playerypos + playeryspeed)+17),((int) Math.round(playerxpos)))) == 1))
+            playerypos += playeryspeed;
+        else if (!((pixelcanvas.getCollisionMapValue(((int) Math.round(playerypos + (playeryspeed/6))+17),((int) Math.round(playerxpos)))) == 1))
+            playerypos += (playeryspeed/6);
     }
 
     public void movePlayerJump() {
@@ -29,6 +32,10 @@ public class Player {
     public void calculateYSpeed(){
         if (!(playeryspeed>2.5))
             playeryspeed = playeryspeed + 0.13;
+    }
+
+    public void setPixelCanvas(PixelCanvas pixelcanvas) {
+        this.pixelcanvas = pixelcanvas;
     }
 }
 

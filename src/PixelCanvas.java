@@ -16,19 +16,23 @@ public class PixelCanvas extends JPanel {
     private final int backgroundpixelwidth = 640;
     private final int backgroundpixelheight = 180;
     private int worldxposition = 0;
-    String[][] background = new String[backgroundpixelheight][backgroundpixelwidth];
+    private String[][] background = new String[backgroundpixelheight][backgroundpixelwidth];
+    int[][] backgroundcollisionmap = new int[backgroundpixelheight][backgroundpixelwidth];
     String[][] world = new String[backgroundpixelheight][backgroundpixelwidth];
     String[][] gamescreen = new String[gamepixelheight][gamepixelwidth];
     String[][] character = new String[18][10];
 
-
-    public PixelCanvas(GUI gui, Player player) throws IOException {
-        this.gui = gui;
-        this.player = player;
+    public PixelCanvas() throws IOException {
         setBackgroundFromFile();
+        setBackgroundCollisionmapFromFile();
         setCharacterFromFile();
         paintBackgroundToWorld();
         paintWorldToScreen();
+    }
+
+    public void setGUIAndPlayer(GUI gui, Player player){
+        this.gui = gui;
+        this.player = player;
     }
 
     @Override
@@ -57,6 +61,23 @@ public class PixelCanvas extends JPanel {
                 int blue = (color >> 0) & 0xff;
                 String hex = String.format("#%02x%02x%02x%02x", alpha, red, green, blue);
                 background[i][j] = hex;
+            }
+        }
+    }
+
+    public void setBackgroundCollisionmapFromFile() throws IOException {
+        File file = new File("images/backgroundcollisionmap.png");
+        BufferedImage image = ImageIO.read(file);
+        for (int j = 0; j < backgroundpixelwidth; j++) {
+            for (int i = 0; i < backgroundpixelheight; i++){
+                int color = image.getRGB(j, i);
+                int alpha = (color >> 24) & 0xff;
+                int red = (color >> 16) & 0xff;
+                int green = (color >> 8) & 0xff;
+                int blue = (color >> 0) & 0xff;
+                String hex = String.format("#%02x%02x%02x%02x", alpha, red, green, blue);
+                if (Objects.equals(hex,"#ffff00ff"))
+                backgroundcollisionmap[i][j] = 1;
             }
         }
     }
@@ -139,6 +160,10 @@ public class PixelCanvas extends JPanel {
         int b = (int) lb;
 
         return new Color(r, g, b, a);
+    }
+
+    public int getCollisionMapValue(int i, int j){
+        return backgroundcollisionmap[i][j];
     }
 }
 

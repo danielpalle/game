@@ -11,11 +11,9 @@ public class GUI {
     JFrame frame = new JFrame();
     JPanel rightborder = new JPanel();
 
-
-    public GUI(Player player) throws IOException {
+    public void setPixelCanvasAndPlayer(PixelCanvas pixelcanvas, Player player){
+        this.pixelcanvas = pixelcanvas;
         this.player = player;
-        pixelcanvas = new PixelCanvas(this, player);
-        buildGameWindow();
     }
 
     public void buildGameWindow(){
@@ -45,14 +43,14 @@ public class GUI {
             public void keyPressed(KeyEvent e) {
 
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    player.playerxspeed = 1;
+                    player.playerxspeed = 2;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
 
                     player.movePlayerJump();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    player.playerxspeed = -1;
+                    player.playerxspeed = -2;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                 }
