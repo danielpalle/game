@@ -1,62 +1,34 @@
-import java.util.Objects;
-
 public class Player {
-    private int playerxpos = 155;
-    private int playerypos = 124;
+    private double playerxpos = 155;
+    private double playerypos = 114;
+    static double playerxspeed = 0;
+    private double playeryspeed = 0;
 
-    Boolean moveright = false;
-    Boolean moveup = false;
-    Boolean moveleft = false;
-    Boolean movedown = false;
 
     public void movePlayer(){
-        if (Objects.equals(getMoveDirection(),"right"))
-            movePlayerRight();
-        else if (Objects.equals(getMoveDirection(),"left"))
-            movePlayerLeft();
-        else if (Objects.equals(getMoveDirection(),"up"))
-            movePlayerUp();
-        else if (Objects.equals(getMoveDirection(),"down"))
-            movePlayerDown();
+        playerxpos += playerxspeed;
+
+        if (!((playerypos + playeryspeed)>124))
+        playerypos += playeryspeed;
     }
 
-    public String getMoveDirection(){
-        String movedirection = null;
-
-        if (moveright) {
-            movedirection = "right";}
-        else if (moveleft)
-            movedirection = "left";
-        else if (moveup)
-            movedirection = "up";
-        else if (movedown)
-            movedirection = "down";
-
-        return movedirection;
+    public void movePlayerJump() {
+        playeryspeed = -3;
     }
 
-    public void movePlayerRight(){
-        if (!(playerxpos + 2 >= 630))
-        playerxpos += 2;
+    public double getRoundedPlayerXPos(){
+        int roundedplayerxpos = (int) Math.round(playerxpos);
+        return roundedplayerxpos;
     }
 
-    public void movePlayerLeft(){
-        if (!(playerxpos - 2 < 0))
-        playerxpos -= 2;
+    public double getRoundedPlayerYPos(){
+        int roundedplayerypos = (int) Math.round(playerypos);
+        return roundedplayerypos;
     }
 
-    public void movePlayerDown(){
-    }
-
-    public void movePlayerUp() {
-    }
-
-    public int getPlayerXPos(){
-        return playerxpos;
-    }
-
-    public int getPlayerYPos(){
-        return playerypos;
+    public void calculateYSpeed(){
+        if (!(playeryspeed>2.5))
+            playeryspeed = playeryspeed + 0.13;
     }
 }
 

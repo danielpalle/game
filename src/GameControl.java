@@ -2,24 +2,23 @@ import java.io.IOException;
 
 public class GameControl {
     GUI gui;
-    Timer timer;
+    Timer ticktimer;
     Player player;
 
     public GameControl() throws IOException {
         player = new Player();
         gui = new GUI(player);
-        timer = new Timer(this);
+        ticktimer = new Timer(this);
     }
 
     public void startGame(){
         gui.buildGameWindow();
-        timer.startTimer();
+        ticktimer.startTimer();
     }
 
     public void tick(){
+        player.calculateYSpeed();
         player.movePlayer();
         gui.repaintPixelCanvas();
     }
-
-
 }

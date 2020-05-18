@@ -15,11 +15,12 @@ public class PixelCanvas extends JPanel {
     private final int gamepixelheight = 180;
     private final int backgroundpixelwidth = 640;
     private final int backgroundpixelheight = 180;
+    private int worldxposition = 0;
     String[][] background = new String[backgroundpixelheight][backgroundpixelwidth];
     String[][] world = new String[backgroundpixelheight][backgroundpixelwidth];
     String[][] gamescreen = new String[gamepixelheight][gamepixelwidth];
     String[][] character = new String[18][10];
-    private int worldxposition = 0;
+
 
     public PixelCanvas(GUI gui, Player player) throws IOException {
         this.gui = gui;
@@ -85,8 +86,8 @@ public class PixelCanvas extends JPanel {
     }
 
     public void paintCharacterToWorld() {
-        for (int i = 0, y = player.getPlayerYPos(); i < character.length; i++, y++) {
-            for (int j = 0, x = player.getPlayerXPos(); j < character[0].length; j++, x++) {
+        for (int i = 0, y = (int) player.getRoundedPlayerYPos(); i < character.length; i++, y++) {
+            for (int j = 0, x = (int) player.getRoundedPlayerXPos(); j < character[0].length; j++, x++) {
                 if(!Objects.equals(character[i][j],"#ffff00ff"))
                     world[y][x] = character[i][j];
             }
@@ -102,7 +103,7 @@ public class PixelCanvas extends JPanel {
     }
 
     public int getPlayerDistanceFromLeftBorder(){
-        int playerdistancefromleftborder=player.getPlayerXPos()-worldxposition;
+        int playerdistancefromleftborder= (int) (player.getRoundedPlayerXPos()-worldxposition);
         return playerdistancefromleftborder;
     }
 

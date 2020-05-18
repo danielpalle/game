@@ -45,32 +45,30 @@ public class GUI {
             public void keyPressed(KeyEvent e) {
 
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    player.moveright = true;
+                    player.playerxspeed = 1;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    player.moveup = true;
+
+                    player.movePlayerJump();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    player.moveleft = true;
+                    player.playerxspeed = -1;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    player.movedown = true;
                 }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    player.moveright = false;
+                    player.playerxspeed = 0;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    player.moveup = false;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    player.moveleft = false;
+                    player.playerxspeed = 0;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    player.movedown = false;
                 }
             }
         });
