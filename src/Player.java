@@ -1,9 +1,9 @@
 public class Player {
     PixelCanvas pixelcanvas;
-    private double playerxpos = 155;
-    private double playerypos = 114;
+    static double playerxpos = 155;
+    static double playerypos = 114;
     static double playerxspeed = 0;
-    private double playeryspeed = 0;
+    static double playeryspeed = 0;
 
 
     public void movePlayer(){
