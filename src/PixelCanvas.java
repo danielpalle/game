@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class PixelCanvas extends JPanel {
-    GUI gui;
     Player player;
     private final int REALWIDTH = 960;
     private final int REALHEIGHT = 540;
@@ -30,8 +29,7 @@ public class PixelCanvas extends JPanel {
         paintWorldToScreen();
     }
 
-    public void setGUIAndPlayer(GUI gui, Player player){
-        this.gui = gui;
+    public void setPlayer(Player player){
         this.player = player;
     }
 

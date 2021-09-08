@@ -1,20 +1,21 @@
 public class Timer {
     java.util.Timer timer = new java.util.Timer();
-    int tickperiod = 20;
-    GameControl gamecontrol;
 
-    public Timer(GameControl gamecontrol){
-        this.gamecontrol = gamecontrol;
+    public Timer(GameControl gameControl){
+        this.gameControl = gameControl;
     }
+
+    int tickPeriod = 20;
+    GameControl gameControl;
 
     public void startTimer() {
        java.util.TimerTask task = new java.util.TimerTask() {
            @Override
            public void run() {
-                gamecontrol.tick();
+                gameControl.tick();
            }
        };
-       timer.schedule(task, tickperiod, tickperiod);
+       timer.schedule(task, tickPeriod, tickPeriod);
     }
 
 }

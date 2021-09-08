@@ -2,27 +2,28 @@ import java.io.IOException;
 
 public class GameControl {
     GUI gui;
-    Timer ticktimer;
+    Timer tickTimer;
     Player player;
-    PixelCanvas pixelcanvas;
+    PixelCanvas pixelCanvas;
 
     public GameControl() throws IOException {
-        ticktimer = new Timer(this);
+        tickTimer = new Timer(this);
         gui = new GUI();
-        pixelcanvas = new PixelCanvas();
+        pixelCanvas = new PixelCanvas();
         player = new Player();
         setObjectDependencies();
+        startGame();
     }
 
     public void setObjectDependencies(){
-        gui.setPixelCanvasAndPlayer(pixelcanvas, player);
-        pixelcanvas.setGUIAndPlayer(gui, player);
-        player.setPixelCanvas(pixelcanvas);
+        gui.setPixelCanvasAndPlayer(pixelCanvas, player);
+        pixelCanvas.setPlayer(player);
+        player.setPixelCanvas(pixelCanvas);
     }
 
     public void startGame(){
         gui.buildGameWindow();
-        ticktimer.startTimer();
+        tickTimer.startTimer();
     }
 
     public void tick(){

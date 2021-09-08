@@ -5,14 +5,14 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 
 public class GUI {
-    PixelCanvas pixelcanvas;
+    PixelCanvas pixelCanvas;
     Player player;
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     JFrame frame = new JFrame();
     JPanel rightborder = new JPanel();
 
     public void setPixelCanvasAndPlayer(PixelCanvas pixelcanvas, Player player){
-        this.pixelcanvas = pixelcanvas;
+        this.pixelCanvas = pixelcanvas;
         this.player = player;
     }
 
@@ -24,8 +24,8 @@ public class GUI {
         rightborder.setPreferredSize(new Dimension(200, 540));
         rightborder.setBackground(Color.lightGray);
         frame.add(rightborder, BorderLayout.LINE_END);
-        frame.add(pixelcanvas);
-        pixelcanvas.setPreferredSize(new Dimension(960,540));
+        frame.add(pixelCanvas);
+        pixelCanvas.setPreferredSize(new Dimension(960,540));
         frame.pack();
         frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
         frame.setVisible(true);
@@ -46,7 +46,7 @@ public class GUI {
                     player.playerxspeed = 2;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    if (((pixelcanvas.getCollisionMapValue(((int) Math.round(player.playerypos + player.playeryspeed/6)+17),((int) Math.round(player.playerxpos)))) == 1))
+                    if (((pixelCanvas.getCollisionMapValue(((int) Math.round(player.playerypos + player.playeryspeed/6)+17),((int) Math.round(player.playerxpos)))) == 1))
                     player.movePlayerJump();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -73,10 +73,10 @@ public class GUI {
     }
 
     public void repaintPixelCanvas(){
-        pixelcanvas.paintBackgroundToWorld();
-        pixelcanvas.paintCharacterToWorld();
-        pixelcanvas.paintWorldToScreen();
-        pixelcanvas.moveCameraWithPlayer();
-        pixelcanvas.repaint();
+        pixelCanvas.paintBackgroundToWorld();
+        pixelCanvas.paintCharacterToWorld();
+        pixelCanvas.paintWorldToScreen();
+        pixelCanvas.moveCameraWithPlayer();
+        pixelCanvas.repaint();
     }
 }
