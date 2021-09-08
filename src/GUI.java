@@ -46,7 +46,7 @@ public class GUI {
                     player.playerxspeed = 2;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    if (((pixelcanvas.getCollisionMapValue(((int) Math.round(player.playerypos + player.playeryspeed)+17),((int) Math.round(player.playerxpos)))) == 1))
+                    if (((pixelcanvas.getCollisionMapValue(((int) Math.round(player.playerypos + player.playeryspeed/6)+17),((int) Math.round(player.playerxpos)))) == 1))
                     player.movePlayerJump();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {

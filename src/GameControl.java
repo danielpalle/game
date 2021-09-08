@@ -11,6 +11,7 @@ public class GameControl {
         gui = new GUI();
         pixelcanvas = new PixelCanvas();
         player = new Player();
+        setObjectDependencies();
     }
 
     public void setObjectDependencies(){
