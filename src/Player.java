@@ -34,7 +34,7 @@ public class Player {
             playeryspeed = playeryspeed + 0.13;
     }
 
-    public void setPixelCanvas(PixelCanvas pixelcanvas) {
+    public void injectPixelCanvas(PixelCanvas pixelcanvas) {
         this.pixelcanvas = pixelcanvas;
     }
 }

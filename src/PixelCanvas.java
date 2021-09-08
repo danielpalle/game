@@ -29,7 +29,7 @@ public class PixelCanvas extends JPanel {
         paintWorldToScreen();
     }
 
-    public void setPlayer(Player player){
+    public void injectPlayer(Player player){
         this.player = player;
     }
 

@@ -11,14 +11,14 @@ public class GameControl {
         gui = new GUI();
         pixelCanvas = new PixelCanvas();
         player = new Player();
-        setObjectDependencies();
+        injectDependencies();
         startGame();
     }
 
-    public void setObjectDependencies(){
-        gui.setPixelCanvasAndPlayer(pixelCanvas, player);
-        pixelCanvas.setPlayer(player);
-        player.setPixelCanvas(pixelCanvas);
+    public void injectDependencies(){
+        gui.injectPixelCanvasAndPlayer(pixelCanvas, player);
+        pixelCanvas.injectPlayer(player);
+        player.injectPixelCanvas(pixelCanvas);
     }
 
     public void startGame(){

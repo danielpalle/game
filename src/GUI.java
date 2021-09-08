@@ -2,16 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 
 public class GUI {
     PixelCanvas pixelCanvas;
     Player player;
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     JFrame frame = new JFrame();
-    JPanel rightborder = new JPanel();
+    JPanel rightBorder = new JPanel();
 
-    public void setPixelCanvasAndPlayer(PixelCanvas pixelcanvas, Player player){
+    public void injectPixelCanvasAndPlayer(PixelCanvas pixelcanvas, Player player){
         this.pixelCanvas = pixelcanvas;
         this.player = player;
     }
@@ -21,9 +20,9 @@ public class GUI {
         frame.setTitle("Game");
         frame.setResizable(false);
         frame.setFocusable(true);
-        rightborder.setPreferredSize(new Dimension(200, 540));
-        rightborder.setBackground(Color.lightGray);
-        frame.add(rightborder, BorderLayout.LINE_END);
+        rightBorder.setPreferredSize(new Dimension(200, 540));
+        rightBorder.setBackground(Color.lightGray);
+        frame.add(rightBorder, BorderLayout.LINE_END);
         frame.add(pixelCanvas);
         pixelCanvas.setPreferredSize(new Dimension(960,540));
         frame.pack();
