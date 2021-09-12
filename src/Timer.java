@@ -5,14 +5,14 @@ public class Timer {
         this.gameControl = gameControl;
     }
 
-    int tickPeriod = 20;
+    int tickPeriod = 15;
     GameControl gameControl;
 
     public void startTimer() {
        java.util.TimerTask task = new java.util.TimerTask() {
            @Override
            public void run() {
-                gameControl.tick();
+               gameControl.tick();
            }
        };
        timer.schedule(task, tickPeriod, tickPeriod);

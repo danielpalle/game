@@ -8,9 +8,11 @@ import java.util.Objects;
 
 public class PixelCanvas extends JPanel {
     Player player;
-    private final int REALWIDTH = 960;
+    //private final int REALWIDTH = 960;
+    private final int REALWIDTH = 540;
     private final int REALHEIGHT = 540;
-    private final int gamepixelwidth = 320;
+    //private final int gamepixelwidth = 320;
+    private final int gamepixelwidth = 180;
     private final int gamepixelheight = 180;
     private final int backgroundpixelwidth = 640;
     private final int backgroundpixelheight = 180;
@@ -127,10 +129,10 @@ public class PixelCanvas extends JPanel {
     }
 
     public void moveCameraWithPlayer(){
-        if (getPlayerDistanceFromLeftBorder()>220)
+        if (getPlayerDistanceFromLeftBorder()>130)
             moveCameraRight();
 
-        if (getPlayerDistanceFromLeftBorder()<100)
+        if (getPlayerDistanceFromLeftBorder()<50)
             moveCameraLeft();
     }
 

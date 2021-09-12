@@ -24,7 +24,8 @@ public class GUI {
         rightBorder.setBackground(Color.lightGray);
         frame.add(rightBorder, BorderLayout.LINE_END);
         frame.add(pixelCanvas);
-        pixelCanvas.setPreferredSize(new Dimension(960,540));
+        //
+        pixelCanvas.setPreferredSize(new Dimension(540,540));
         frame.pack();
         frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
         frame.setVisible(true);
