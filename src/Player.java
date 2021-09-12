@@ -9,6 +9,8 @@ public class Player {
     public void movePlayer(){
         playerxpos += playerxspeed;
 
+        calculatePlayerYSpeed();
+
         if (((pixelcanvas.getCollisionMapValue(((int) Math.round(playerypos + playeryspeed)+17),((int) playerxpos))) != 1))
             playerypos += playeryspeed;
         else if (((pixelcanvas.getCollisionMapValue(((int) Math.round(playerypos + (playeryspeed/6))+17),((int) playerxpos))) != 1))
@@ -29,7 +31,7 @@ public class Player {
         return roundedplayerypos;
     }
 
-    public void calculateYSpeed(){
+    public void calculatePlayerYSpeed(){
         if (!(playeryspeed>2.5))
             playeryspeed = playeryspeed + 0.25;
     }

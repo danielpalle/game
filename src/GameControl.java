@@ -27,7 +27,6 @@ public class GameControl {
     }
 
     public void tick(){
-        player.calculateYSpeed();
         player.movePlayer();
         gui.repaintPixelCanvas();
     }

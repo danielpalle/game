@@ -137,12 +137,12 @@ public class PixelCanvas extends JPanel {
     }
 
     private void moveCameraRight(){
-        if (!(worldxposition + 2 > 320))
+        if ((worldxposition + 2 < 460))
         worldxposition+=2;
     }
 
     private void moveCameraLeft(){
-        if (!(worldxposition - 2 < 0))
+        if ((worldxposition - 2 > 0))
         worldxposition-=2;
     }
 
