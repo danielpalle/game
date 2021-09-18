@@ -15,19 +15,19 @@ public class GameControl {
         startGame();
     }
 
-    public void injectDependencies(){
+    public void injectDependencies() {
         gui.injectPixelCanvasAndPlayer(pixelCanvas, player);
         pixelCanvas.injectPlayer(player);
         player.injectPixelCanvas(pixelCanvas);
     }
 
-    public void startGame(){
+    public void startGame() {
         gui.buildGameWindow();
         tickTimer.startTimer();
     }
 
-    public void tick(){
+    public void tick() {
         player.movePlayer(2);
-        gui.repaintPixelCanvas();
+        pixelCanvas.repaintPixelCanvas();
     }
 }

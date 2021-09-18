@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GUI {
     PixelCanvas pixelCanvas;
@@ -10,12 +12,12 @@ public class GUI {
     JFrame frame = new JFrame();
     JPanel rightBorder = new JPanel();
 
-    public void injectPixelCanvasAndPlayer(PixelCanvas pixelcanvas, Player player){
+    public void injectPixelCanvasAndPlayer(PixelCanvas pixelcanvas, Player player) {
         this.pixelCanvas = pixelcanvas;
         this.player = player;
     }
 
-    public void buildGameWindow(){
+    public void buildGameWindow() {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setTitle("Game");
         frame.setResizable(false);
@@ -24,16 +26,17 @@ public class GUI {
         rightBorder.setBackground(Color.lightGray);
         frame.add(rightBorder, BorderLayout.LINE_END);
         frame.add(pixelCanvas);
-        pixelCanvas.setPreferredSize(new Dimension(540,540));
+        pixelCanvas.setPreferredSize(new Dimension(480,540));
         frame.pack();
         frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
         frame.setVisible(true);
         addKeyListenerToFrame();
+        addMouseListenerToFrame();
     }
 
     private void addKeyListenerToFrame() {
 
-        frame.addKeyListener(new KeyListener(){
+        frame.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
             }
@@ -71,11 +74,12 @@ public class GUI {
         });
     }
 
-    public void repaintPixelCanvas(){
-        pixelCanvas.paintBackgroundToWorld();
-        pixelCanvas.paintCharacterToWorld();
-        pixelCanvas.paintWorldToScreen();
-        pixelCanvas.moveCameraWithPlayer();
-        pixelCanvas.repaint();
+    private void addMouseListenerToFrame() {
+        pixelCanvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                System.out.println((e.getX()/3) + PixelCanvas.cameraXPosition + "," + e.getY()/3);
+            }
+        });
     }
 }

@@ -1,8 +1,8 @@
 public class Timer {
-
-    java.util.Timer timer = new java.util.Timer();
     GameControl gameControl;
+
     private static final int TICK_PERIOD = 15;
+    java.util.Timer timer = new java.util.Timer();
 
     public Timer(GameControl gameControl){
         this.gameControl = gameControl;
@@ -17,5 +17,4 @@ public class Timer {
        };
        timer.schedule(task, TICK_PERIOD, TICK_PERIOD);
     }
-
 }

@@ -1,21 +1,21 @@
 public class Player {
     PixelCanvas pixelcanvas;
 
-    private double playerXPos = 90;
+    private double playerXPos = 110;
     private double playerYPos = 104;
     private double playerXSpeed = 0;
     private double playerYSpeed = 0;
 
-    public void movePlayer(int PlayerMovementsPerTick){
+    public void movePlayer(int PlayerMovementsPerTick) {
         for (int i=0; i<PlayerMovementsPerTick; i++) {
-        movePlayerHorizontal();
-        movePlayerVertical();
+            movePlayerHorizontal();
+            movePlayerVertical();
         }
     }
 
     private void movePlayerHorizontal() {
         if (!isNextPlayerMovementOutOfBounds())
-        playerXPos += playerXSpeed;
+            playerXPos += playerXSpeed;
     }
 
     private void movePlayerVertical() {
@@ -26,28 +26,28 @@ public class Player {
     }
 
     public void movePlayerJump() {
-        playerYSpeed = -1;
+        playerYSpeed = -1.5;
     }
 
-    public double getRoundedPlayerXPos(){
+    public double getRoundedPlayerXPos() {
         return (int) Math.round(playerXPos);
     }
 
-    public double getRoundedPlayerYPos(){
+    public double getRoundedPlayerYPos() {
         return (int) Math.round(playerYPos);
     }
 
-    public int getPlayerDistanceFromLeftBorder(){
+    public int getPlayerDistanceFromLeftBorder() {
         return (int) (getRoundedPlayerXPos() - PixelCanvas.cameraXPosition);
     }
 
-    public void setPlayerXSpeed(double playerxspeed) {
-        this.playerXSpeed = playerxspeed;
+    public void setPlayerXSpeed(double playerXSpeed) {
+        this.playerXSpeed = playerXSpeed;
     }
 
-    public void calculatePlayerYSpeed(){
+    public void calculatePlayerYSpeed() {
         if ((playerYSpeed <1))
-            playerYSpeed = playerYSpeed + 0.02;
+            playerYSpeed = playerYSpeed + 0.025;
     }
 
     public boolean isPlayerStandingOnCollisionSurface() {
@@ -55,7 +55,7 @@ public class Player {
     }
 
     private boolean isNextPlayerMovementOutOfBounds() {
-        return ((playerXPos + playerXSpeed) < 0 || (playerXPos + playerXSpeed) >= 630);
+        return ((playerXPos + playerXSpeed) < 13 || (playerXPos + playerXSpeed) >= 618);
     }
 
     public void injectPixelCanvas(PixelCanvas pixelcanvas) {
