@@ -1,10 +1,10 @@
 public class Player {
     PixelCanvas pixelcanvas;
 
-    static double playerxpos = 90;
-    static double playerypos = 104;
-    static double playerxspeed = 0;
-    static double playeryspeed = 0;
+    private double playerXPos = 90;
+    private double playerYPos = 104;
+    private double playerXSpeed = 0;
+    private double playerYSpeed = 0;
 
     public void movePlayer(int PlayerMovementsPerTick){
         for (int i=0; i<PlayerMovementsPerTick; i++) {
@@ -15,43 +15,47 @@ public class Player {
 
     private void movePlayerHorizontal() {
         if (!isNextPlayerMovementOutOfBounds())
-        playerxpos += playerxspeed;
+        playerXPos += playerXSpeed;
     }
 
     private void movePlayerVertical() {
         calculatePlayerYSpeed();
 
         if (!isPlayerStandingOnCollisionSurface())
-            playerypos += playeryspeed;
+            playerYPos += playerYSpeed;
     }
 
     public void movePlayerJump() {
-        playeryspeed = -1;
+        playerYSpeed = -1;
     }
 
     public double getRoundedPlayerXPos(){
-        return (int) Math.round(playerxpos);
+        return (int) Math.round(playerXPos);
     }
 
     public double getRoundedPlayerYPos(){
-        return (int) Math.round(playerypos);
+        return (int) Math.round(playerYPos);
     }
 
     public int getPlayerDistanceFromLeftBorder(){
         return (int) (getRoundedPlayerXPos() - PixelCanvas.cameraXPosition);
     }
 
-    public void calculatePlayerYSpeed(){
-        if ((playeryspeed<1))
-            playeryspeed = playeryspeed + 0.02;
+    public void setPlayerXSpeed(double playerxspeed) {
+        this.playerXSpeed = playerxspeed;
     }
 
-    private boolean isPlayerStandingOnCollisionSurface() {
-        return (pixelcanvas.getCollisionMapValue(((int) Math.round(playerypos + playeryspeed)+17),((int) playerxpos))) == 1;
+    public void calculatePlayerYSpeed(){
+        if ((playerYSpeed <1))
+            playerYSpeed = playerYSpeed + 0.02;
+    }
+
+    public boolean isPlayerStandingOnCollisionSurface() {
+        return (pixelcanvas.getCollisionMapValue(((int) Math.round(playerYPos + playerYSpeed)+17),((int) playerXPos))) == 1;
     }
 
     private boolean isNextPlayerMovementOutOfBounds() {
-        return ((playerxpos + playerxspeed) < 0 || (playerxpos + playerxspeed) >= 630);
+        return ((playerXPos + playerXSpeed) < 0 || (playerXPos + playerXSpeed) >= 630);
     }
 
     public void injectPixelCanvas(PixelCanvas pixelcanvas) {

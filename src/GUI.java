@@ -42,14 +42,14 @@ public class GUI {
             public void keyPressed(KeyEvent e) {
 
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    player.playerxspeed = 1;
+                    player.setPlayerXSpeed(1);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    if (((pixelCanvas.getCollisionMapValue(((int) Math.round(player.playerypos + player.playeryspeed)+17),((int) Math.round(player.playerxpos)))) == 1))
+                    if (player.isPlayerStandingOnCollisionSurface())
                     player.movePlayerJump();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    player.playerxspeed = -1;
+                    player.setPlayerXSpeed(-1);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                 }
@@ -58,12 +58,12 @@ public class GUI {
             @Override
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    player.playerxspeed = 0;
+                    player.setPlayerXSpeed(0);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    player.playerxspeed = 0;
+                    player.setPlayerXSpeed(0);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                 }
