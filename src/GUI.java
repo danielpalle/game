@@ -42,14 +42,14 @@ public class GUI {
             public void keyPressed(KeyEvent e) {
 
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    player.playerxspeed = 2;
+                    player.playerxspeed = 1;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    if (((pixelCanvas.getCollisionMapValue(((int) Math.round(player.playerypos + player.playeryspeed/6)+17),((int) Math.round(player.playerxpos)))) == 1))
+                    if (((pixelCanvas.getCollisionMapValue(((int) Math.round(player.playerypos + player.playeryspeed)+17),((int) Math.round(player.playerxpos)))) == 1))
                     player.movePlayerJump();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    player.playerxspeed = -2;
+                    player.playerxspeed = -1;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                 }

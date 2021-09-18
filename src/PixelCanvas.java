@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class PixelCanvas extends JPanel {
+
     Player player;
-    //private final int REALWIDTH = 960;
+
     private final int REALWIDTH = 540;
     private final int REALHEIGHT = 540;
-    //private final int gamepixelwidth = 320;
     private final int gamepixelwidth = 180;
     private final int gamepixelheight = 180;
     private final int backgroundpixelwidth = 640;
@@ -124,15 +124,15 @@ public class PixelCanvas extends JPanel {
     }
 
     public int getPlayerDistanceFromLeftBorder(){
-        int playerdistancefromleftborder= (int) (player.getRoundedPlayerXPos()-worldxposition);
+        int playerdistancefromleftborder = (int) (player.getRoundedPlayerXPos()-worldxposition);
         return playerdistancefromleftborder;
     }
 
     public void moveCameraWithPlayer(){
-        if (getPlayerDistanceFromLeftBorder()>130)
+        if (getPlayerDistanceFromLeftBorder()>120)
             moveCameraRight();
 
-        if (getPlayerDistanceFromLeftBorder()<50)
+        if (getPlayerDistanceFromLeftBorder()<60)
             moveCameraLeft();
     }
 

@@ -27,7 +27,7 @@ public class GameControl {
     }
 
     public void tick(){
-        player.movePlayer();
+        player.movePlayer(2);
         gui.repaintPixelCanvas();
     }
 }
