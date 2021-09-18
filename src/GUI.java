@@ -79,13 +79,16 @@ public class GUI {
         pixelCanvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                //System.out.println("deltaX");
-                //System.out.println((((e.getX()/3) + PixelCanvas.cameraXPosition)-(player.getRoundedPlayerXPos()))-4);
-                //System.out.println("deltaY");
-                //System.out.println(((e.getY()/3)-player.getRoundedPlayerYPos()-9));
+                System.out.println(getYSpeed(getHorizontalDistanceOfCharacterToMousePointer(e), getVerticalDistanceOfCharacterToMousePointer(e)));
+                player.setPlayerYSpeed(getYSpeed((getHorizontalDistanceOfCharacterToMousePointer(e)), (getVerticalDistanceOfCharacterToMousePointer(e))));
+            }
 
-                System.out.println(getYSpeed(((((e.getX()/3) + PixelCanvas.cameraXPosition)-(player.getRoundedPlayerXPos()))-4), ((e.getY()/3)-player.getRoundedPlayerYPos()-9)));
-                player.setPlayerYSpeed(getYSpeed(((((e.getX()/3) + PixelCanvas.cameraXPosition)-(player.getRoundedPlayerXPos()))-4), ((e.getY()/3)-player.getRoundedPlayerYPos()-9)));
+            private double getHorizontalDistanceOfCharacterToMousePointer(MouseEvent e) {
+                return (((e.getX() / 3) + PixelCanvas.cameraXPosition) - (player.getRoundedPlayerXPos())) - 4;
+            }
+
+            private double getVerticalDistanceOfCharacterToMousePointer(MouseEvent e) {
+                return (e.getY() / 3) - player.getRoundedPlayerYPos() - 9;
             }
         });
     }
