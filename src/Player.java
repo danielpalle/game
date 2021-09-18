@@ -37,6 +37,10 @@ public class Player {
         return (int) Math.round(playerypos);
     }
 
+    public int getPlayerDistanceFromLeftBorder(){
+        return (int) (getRoundedPlayerXPos() - PixelCanvas.cameraXPosition);
+    }
+
     public void calculatePlayerYSpeed(){
         if ((playeryspeed<1))
             playeryspeed = playeryspeed + 0.02;
