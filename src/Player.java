@@ -7,8 +7,7 @@ public class Player {
 
 
     public void movePlayer(int numberOfPlayerMovementsPerTick){
-        int i;
-        for (i=0; i<numberOfPlayerMovementsPerTick; i++) {
+        for (int i=0; i<numberOfPlayerMovementsPerTick; i++) {
         movePlayerHorizontal();
         movePlayerVertical();
         }
@@ -26,31 +25,29 @@ public class Player {
             playerypos += playeryspeed;
     }
 
+    public void movePlayerJump() {
+        playeryspeed = -1;
+    }
+
+    public double getRoundedPlayerXPos(){
+        return (int) Math.round(playerxpos);
+    }
+
+    public double getRoundedPlayerYPos(){
+        return (int) Math.round(playerypos);
+    }
+
+    public void calculatePlayerYSpeed(){
+        if ((playeryspeed<1))
+            playeryspeed = playeryspeed + 0.02;
+    }
+
     private boolean isPlayerStandingOnCollisionSurface() {
         return (pixelcanvas.getCollisionMapValue(((int) Math.round(playerypos + playeryspeed)+17),((int) playerxpos))) == 1;
     }
 
     private boolean isNextPlayerMovementOutOfBounds() {
         return ((playerxpos + playerxspeed) < 0 || (playerxpos + playerxspeed) >= 630);
-    }
-
-    public void movePlayerJump() {
-        playeryspeed = -1;
-    }
-
-    public double getRoundedPlayerXPos(){
-        int roundedplayerxpos = (int) Math.round(playerxpos);
-        return roundedplayerxpos;
-    }
-
-    public double getRoundedPlayerYPos(){
-        int roundedplayerypos = (int) Math.round(playerypos);
-        return roundedplayerypos;
-    }
-
-    public void calculatePlayerYSpeed(){
-        if ((playeryspeed<1))
-            playeryspeed = playeryspeed + 0.02;
     }
 
     public void injectPixelCanvas(PixelCanvas pixelcanvas) {

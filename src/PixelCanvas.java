@@ -10,41 +10,37 @@ public class PixelCanvas extends JPanel {
 
     Player player;
 
-    private final int REALWIDTH = 540;
-    private final int REALHEIGHT = 540;
-    private final int gamepixelwidth = 180;
-    private final int gamepixelheight = 180;
-    private final int backgroundpixelwidth = 640;
-    private final int backgroundpixelheight = 180;
+    private static final int GAME_PIXEL_WIDTH = 180;
+    private static final int GAME_PIXEL_HEIGHT = 180;
+    private static final int BACKGROUND_PIXEL_WIDTH = 640;
+    private static final int BACKGROUND_PIXEL_HEIGHT = 180;
     private int worldxposition = 0;
-    private String[][] background = new String[backgroundpixelheight][backgroundpixelwidth];
-    int[][] backgroundcollisionmap = new int[backgroundpixelheight][backgroundpixelwidth];
-    String[][] world = new String[backgroundpixelheight][backgroundpixelwidth];
-    String[][] gamescreen = new String[gamepixelheight][gamepixelwidth];
+    private String[][] background = new String[BACKGROUND_PIXEL_HEIGHT][BACKGROUND_PIXEL_WIDTH];
+    int[][] backgroundcollisionmap = new int[BACKGROUND_PIXEL_HEIGHT][BACKGROUND_PIXEL_WIDTH];
+    String[][] world = new String[BACKGROUND_PIXEL_HEIGHT][BACKGROUND_PIXEL_WIDTH];
+    String[][] gamescreen = new String[GAME_PIXEL_HEIGHT][GAME_PIXEL_WIDTH];
     String[][] character = new String[18][10];
 
     public PixelCanvas() throws IOException {
         setBackgroundFromFile();
-        setBackgroundCollisionmapFromFile();
+        setBackgroundCollisionMapFromFile();
         setCharacterFromFile();
         paintBackgroundToWorld();
         paintWorldToScreen();
     }
 
-    public void injectPlayer(Player player){
-        this.player = player;
-    }
-
     @Override
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         //long start = System.currentTimeMillis();
         //long elapsedTimeMillis = System.currentTimeMillis()-start;
         //System.out.println(elapsedTimeMillis);
         super.paintComponent(g);
-        for (int j = 0, s = 0; j < gamepixelheight; j+=1, s++) {
-            for (int i = 0; i < gamepixelwidth; i += 1, s++) {
+        for (int j = 0, s = 0; j < GAME_PIXEL_HEIGHT; j += 1, s++) {
+            for (int i = 0; i < GAME_PIXEL_WIDTH; i += 1, s++) {
                 g.setColor(decodeHexWithAlpha(gamescreen[j][i]));
-                g.fillRect(i*(REALWIDTH /gamepixelwidth), j*(REALHEIGHT /gamepixelheight), REALWIDTH / 32, REALHEIGHT / 18);
+                int realWidth = 540;
+                int realHeight = 540;
+                g.fillRect(i*(realWidth / GAME_PIXEL_WIDTH), j*(realHeight / GAME_PIXEL_HEIGHT), realWidth / 64, realHeight / 18);
             }
         }
     }
@@ -52,8 +48,8 @@ public class PixelCanvas extends JPanel {
     public void setBackgroundFromFile() throws IOException {
         File file = new File("images/backgroundtreeslong.png");
         BufferedImage image = ImageIO.read(file);
-        for (int j = 0; j < backgroundpixelwidth; j++) {
-            for (int i = 0; i < backgroundpixelheight; i++){
+        for (int j = 0; j < BACKGROUND_PIXEL_WIDTH; j++) {
+            for (int i = 0; i < BACKGROUND_PIXEL_HEIGHT; i++){
                 int color = image.getRGB(j, i);
                 int alpha = (color >> 24) & 0xff;
                 int red = (color >> 16) & 0xff;
@@ -65,11 +61,11 @@ public class PixelCanvas extends JPanel {
         }
     }
 
-    public void setBackgroundCollisionmapFromFile() throws IOException {
+    public void setBackgroundCollisionMapFromFile() throws IOException {
         File file = new File("images/backgroundcollisionmap.png");
         BufferedImage image = ImageIO.read(file);
-        for (int j = 0; j < backgroundpixelwidth; j++) {
-            for (int i = 0; i < backgroundpixelheight; i++){
+        for (int j = 0; j < BACKGROUND_PIXEL_WIDTH; j++) {
+            for (int i = 0; i < BACKGROUND_PIXEL_HEIGHT; i++){
                 int color = image.getRGB(j, i);
                 int alpha = (color >> 24) & 0xff;
                 int red = (color >> 16) & 0xff;
@@ -99,8 +95,8 @@ public class PixelCanvas extends JPanel {
     }
 
     public void paintBackgroundToWorld() {
-        for (int i = 0, s = 0; i< backgroundpixelheight; i++, s++) {
-            for (int j = 0; j < backgroundpixelwidth; j++, s++) {
+        for (int i = 0, s = 0; i< BACKGROUND_PIXEL_HEIGHT; i++, s++) {
+            for (int j = 0; j < BACKGROUND_PIXEL_WIDTH; j++, s++) {
                 world[i][j] = background[i][j];
             }
         }
@@ -124,8 +120,7 @@ public class PixelCanvas extends JPanel {
     }
 
     public int getPlayerDistanceFromLeftBorder(){
-        int playerdistancefromleftborder = (int) (player.getRoundedPlayerXPos()-worldxposition);
-        return playerdistancefromleftborder;
+        return (int) (player.getRoundedPlayerXPos()-worldxposition);
     }
 
     public void moveCameraWithPlayer(){
@@ -146,7 +141,7 @@ public class PixelCanvas extends JPanel {
         worldxposition-=2;
     }
 
-    public static Color decodeHexWithAlpha(String nm) throws NumberFormatException {
+    private Color decodeHexWithAlpha(String nm) throws NumberFormatException {
         Long intval = Long.decode(nm);
         Long i = intval.longValue();
 
@@ -164,6 +159,10 @@ public class PixelCanvas extends JPanel {
 
     public int getCollisionMapValue(int i, int j){
         return backgroundcollisionmap[i][j];
+    }
+
+    public void injectPlayer(Player player){
+        this.player = player;
     }
 }
 
