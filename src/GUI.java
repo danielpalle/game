@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.Math;
 
 public class GUI {
     PixelCanvas pixelCanvas;
@@ -78,8 +79,25 @@ public class GUI {
         pixelCanvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                System.out.println((e.getX()/3) + PixelCanvas.cameraXPosition + "," + e.getY()/3);
+                //System.out.println("deltaX");
+                //System.out.println((((e.getX()/3) + PixelCanvas.cameraXPosition)-(player.getRoundedPlayerXPos()))-4);
+                //System.out.println("deltaY");
+                //System.out.println(((e.getY()/3)-player.getRoundedPlayerYPos()-9));
+
+                System.out.println(getYSpeed(((((e.getX()/3) + PixelCanvas.cameraXPosition)-(player.getRoundedPlayerXPos()))-4), ((e.getY()/3)-player.getRoundedPlayerYPos()-9)));
+                player.setPlayerYSpeed(getYSpeed(((((e.getX()/3) + PixelCanvas.cameraXPosition)-(player.getRoundedPlayerXPos()))-4), ((e.getY()/3)-player.getRoundedPlayerYPos()-9)));
             }
         });
     }
+
+    public double getXSpeed(double deltaX, double deltaY) {
+        return (deltaX/(Math.abs(deltaX)+Math.abs(deltaY)));
+    }
+
+    public double getYSpeed (double deltaX, double deltaY) {
+        return (deltaY/(Math.abs(deltaX)+Math.abs(deltaY)));
+    }
+
+
+
 }

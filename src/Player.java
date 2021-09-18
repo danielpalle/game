@@ -4,6 +4,12 @@ public class Player {
     private double playerXPos = 110;
     private double playerYPos = 104;
     private double playerXSpeed = 0;
+
+    // temporary testing method
+    public void setPlayerYSpeed(double playerYSpeed) {
+        this.playerYSpeed = playerYSpeed;
+    }
+
     private double playerYSpeed = 0;
 
     public void movePlayer(int PlayerMovementsPerTick) {
