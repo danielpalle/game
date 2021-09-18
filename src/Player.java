@@ -15,6 +15,7 @@ public class Player {
     }
 
     private void movePlayerHorizontal() {
+        if (!isNextPlayerMovementOutOfBounds())
         playerxpos += playerxspeed;
     }
 
@@ -27,6 +28,10 @@ public class Player {
 
     private boolean isPlayerStandingOnCollisionSurface() {
         return (pixelcanvas.getCollisionMapValue(((int) Math.round(playerypos + playeryspeed)+17),((int) playerxpos))) == 1;
+    }
+
+    private boolean isNextPlayerMovementOutOfBounds() {
+        return ((playerxpos + playerxspeed) < 0 || (playerxpos + playerxspeed) >= 630);
     }
 
     public void movePlayerJump() {
