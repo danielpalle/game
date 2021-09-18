@@ -1,13 +1,13 @@
 public class Player {
     PixelCanvas pixelcanvas;
+
     static double playerxpos = 90;
     static double playerypos = 104;
     static double playerxspeed = 0;
     static double playeryspeed = 0;
 
-
-    public void movePlayer(int numberOfPlayerMovementsPerTick){
-        for (int i=0; i<numberOfPlayerMovementsPerTick; i++) {
+    public void movePlayer(int PlayerMovementsPerTick){
+        for (int i=0; i<PlayerMovementsPerTick; i++) {
         movePlayerHorizontal();
         movePlayerVertical();
         }

@@ -10,18 +10,18 @@ public class PixelCanvas extends JPanel {
 
     Player player;
 
-    private static final int GAME_PIXEL_WIDTH = 180; // GAME_PIXEL dimensions refers to how many pixels we see when playing the game, here we only see a quarter of the gameworld at once unless we move our character around
-    private static final int GAME_PIXEL_HEIGHT = 180;
-    private static final int BACKGROUND_PIXEL_WIDTH = 640; // BACKGROUND_PIXEL refers to the dimensions of the picture file that we use as the background for the gameworld
-    private static final int BACKGROUND_PIXEL_HEIGHT = 180;
-    private static final int CHARACTER_PIXEL_WIDTH = 10; // CHARACTER_PIXEL refers to the dimensions of the picture file we use to create our game character
-    private static final int CHARACTER_PIXEL_HEIGHT = 18;
+    private final int GAME_PIXEL_WIDTH = 180; // GAME_PIXEL dimensions refers to how many pixels we see when playing the game, at 180 only a quarter of the gameworld is visible at once
+    private final int GAME_PIXEL_HEIGHT = 180;
+    private final int BACKGROUND_PIXEL_WIDTH = 640; // BACKGROUND_PIXEL refers to the dimensions of the picture file that we use as the background for the gameworld
+    private final int BACKGROUND_PIXEL_HEIGHT = 180;
+    private final int CHARACTER_PIXEL_WIDTH = 10; // CHARACTER_PIXEL refers to the dimensions of the picture file we use to create our game character
+    private final int CHARACTER_PIXEL_HEIGHT = 18;
     private int cameraXPosition = 0; // This variable is used to decide where the "camera" is in the gameworld on the horizontal plane, i.e what pixels to show to the player
-    private String[][] background = new String[BACKGROUND_PIXEL_HEIGHT][BACKGROUND_PIXEL_WIDTH];
-    int[][] backgroundCollisionMap = new int[BACKGROUND_PIXEL_HEIGHT][BACKGROUND_PIXEL_WIDTH];
-    String[][] world = new String[BACKGROUND_PIXEL_HEIGHT][BACKGROUND_PIXEL_WIDTH];
-    String[][] gameScreen = new String[GAME_PIXEL_HEIGHT][GAME_PIXEL_WIDTH];
-    String[][] character = new String[CHARACTER_PIXEL_HEIGHT][CHARACTER_PIXEL_WIDTH];
+    private String[][] BACKGROUND = new String[BACKGROUND_PIXEL_HEIGHT][BACKGROUND_PIXEL_WIDTH];
+    private int[][] BACKGROUND_COLLISION_MAP = new int[BACKGROUND_PIXEL_HEIGHT][BACKGROUND_PIXEL_WIDTH];
+    private String[][] world = new String[BACKGROUND_PIXEL_HEIGHT][BACKGROUND_PIXEL_WIDTH];
+    private String[][] gameScreen = new String[GAME_PIXEL_HEIGHT][GAME_PIXEL_WIDTH];
+    private String[][] character = new String[CHARACTER_PIXEL_HEIGHT][CHARACTER_PIXEL_WIDTH];
 
     public PixelCanvas() throws IOException {
         setBackgroundFromFile();
@@ -52,7 +52,7 @@ public class PixelCanvas extends JPanel {
                 int green = (color >> 8) & 0xff;
                 int blue = (color >> 0) & 0xff;
                 String hex = String.format("#%02x%02x%02x%02x", alpha, red, green, blue);
-                background[i][j] = hex;
+                BACKGROUND[i][j] = hex;
             }
         }
     }
@@ -69,7 +69,7 @@ public class PixelCanvas extends JPanel {
                 int blue = (color >> 0) & 0xff;
                 String hex = String.format("#%02x%02x%02x%02x", alpha, red, green, blue);
                 if (Objects.equals(hex,"#ffff00ff"))
-                backgroundCollisionMap[i][j] = 1;
+                BACKGROUND_COLLISION_MAP[i][j] = 1;
             }
         }
     }
@@ -93,7 +93,7 @@ public class PixelCanvas extends JPanel {
     public void paintBackgroundToWorld() {
         for (int i = 0, s = 0; i< BACKGROUND_PIXEL_HEIGHT; i++, s++) {
             for (int j = 0; j < BACKGROUND_PIXEL_WIDTH; j++, s++) {
-                world[i][j] = background[i][j];
+                world[i][j] = BACKGROUND[i][j];
             }
         }
     }
@@ -154,7 +154,7 @@ public class PixelCanvas extends JPanel {
     }
 
     public int getCollisionMapValue(int i, int j){
-        return backgroundCollisionMap[i][j];
+        return BACKGROUND_COLLISION_MAP[i][j];
     }
 
     public void injectPlayer(Player player){
