@@ -1,5 +1,5 @@
 public class Player {
-    PixelCanvas pixelcanvas;
+    PixelCanvas pixelCanvas;
 
     private double playerXPos = 110;
     private double playerYPos = 104;
@@ -44,7 +44,7 @@ public class Player {
     }
 
     public int getPlayerDistanceFromLeftBorder() {
-        return (int) (getRoundedPlayerXPos() - PixelCanvas.cameraXPosition);
+        return (int) (getRoundedPlayerXPos() - pixelCanvas.cameraXPosition);
     }
 
     public void setPlayerXSpeed(double playerXSpeed) {
@@ -57,7 +57,7 @@ public class Player {
     }
 
     public boolean isPlayerStandingOnCollisionSurface() {
-        return (pixelcanvas.getCollisionMapValue(((int) Math.round(playerYPos + playerYSpeed)+17),((int) playerXPos))) == 1;
+        return (pixelCanvas.getCollisionMapValue(((int) Math.round(playerYPos + playerYSpeed)+17),((int) playerXPos))) == 1;
     }
 
     private boolean isNextPlayerMovementOutOfBounds() {
@@ -65,7 +65,7 @@ public class Player {
     }
 
     public void injectPixelCanvas(PixelCanvas pixelcanvas) {
-        this.pixelcanvas = pixelcanvas;
+        this.pixelCanvas = pixelcanvas;
     }
 }
 

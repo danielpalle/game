@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Objects;
 
 public class PixelCanvas extends JPanel {
@@ -17,19 +16,23 @@ public class PixelCanvas extends JPanel {
     private static final int BACKGROUND_HEIGHT = 180;
     private static final int CHARACTER_WIDTH = 10; // CHARACTER_ refers to the dimensions of the picture file we use to create our game character
     private static final int CHARACTER_HEIGHT = 18;
+    private static final int BOMB_WIDTH = 8;
+    private static final int BOMB_HEIGHT = 8;
     int cameraXPosition = 20; // This variable is used to decide where the "camera" is in the gameworld on the horizontal plane, i.e what pixels to show to the player
-    private static String[][] background = new String[BACKGROUND_HEIGHT][BACKGROUND_WIDTH];
+    private static String[][] backgroundPicture = new String[BACKGROUND_HEIGHT][BACKGROUND_WIDTH];
     private static int[][] backgroundCollisionMap = new int[BACKGROUND_HEIGHT][BACKGROUND_WIDTH];
     private static String[][] gameWorld = new String[BACKGROUND_HEIGHT][BACKGROUND_WIDTH];
     private static String[][] visibleGameWorld = new String[GAME_HEIGHT][GAME_WIDTH];
-    private static String[][] character = new String[CHARACTER_HEIGHT][CHARACTER_WIDTH];
+    private static String[][] characterPicture = new String[CHARACTER_HEIGHT][CHARACTER_WIDTH];
+    private static String[][] bombPicture = new String[BOMB_HEIGHT][BOMB_WIDTH];
     private ArrayList<Bomb> bombs;
 
 
     public PixelCanvas() throws IOException {
         setBackgroundFromFile();
         setBackgroundCollisionMapFromFile();
-        setCharacterFromFile();
+        setCharacterPictureFromFile();
+        setBombPictureFromFile();
         paintBackgroundToGameWorld();
         paintWorldToVisibleGameWorld();
     }
@@ -47,6 +50,7 @@ public class PixelCanvas extends JPanel {
     public void repaintPixelCanvas() {
         paintBackgroundToGameWorld();
         paintCharacterToGameWorld();
+        paintBombsToGameWorld();
         paintWorldToVisibleGameWorld();
         moveCameraWithPlayer();
         repaint();
@@ -63,7 +67,7 @@ public class PixelCanvas extends JPanel {
                 int green = (color >> 8) & 0xff;
                 int blue = (color >> 0) & 0xff;
                 String hex = String.format("#%02x%02x%02x%02x", alpha, red, green, blue);
-                background[i][j] = hex;
+                backgroundPicture[i][j] = hex;
             }
         }
     }
@@ -85,7 +89,7 @@ public class PixelCanvas extends JPanel {
         }
     }
 
-    public void setCharacterFromFile() throws IOException {
+    public void setCharacterPictureFromFile() throws IOException {
         File file = new File("images/characterlila.png");
         BufferedImage image = ImageIO.read(file);
         for (int i = 0, s = 0; i < CHARACTER_HEIGHT; i++, s++) {
@@ -96,7 +100,23 @@ public class PixelCanvas extends JPanel {
                 int green = (color >> 8) & 0xff;
                 int blue = (color >> 0) & 0xff;
                 String hex = String.format("#%02x%02x%02x%02x", alpha, red, green, blue);
-                character[i][j] = hex;
+                characterPicture[i][j] = hex;
+            }
+        }
+    }
+
+    public void setBombPictureFromFile() throws IOException {
+        File file = new File("images/bomb.png");
+        BufferedImage image = ImageIO.read(file);
+        for (int i = 0, s = 0; i < BOMB_HEIGHT; i++, s++) {
+            for (int j = 0; j < BOMB_WIDTH; j++, s++) {
+                int color = image.getRGB(j, i);
+                int alpha = (color >> 24) & 0xff;
+                int red = (color >> 16) & 0xff;
+                int green = (color >> 8) & 0xff;
+                int blue = (color >> 0) & 0xff;
+                String hex = String.format("#%02x%02x%02x%02x", alpha, red, green, blue);
+                bombPicture[i][j] = hex;
             }
         }
     }
@@ -104,18 +124,27 @@ public class PixelCanvas extends JPanel {
     public void paintBackgroundToGameWorld() {
         for (int i = 0, s = 0; i< BACKGROUND_HEIGHT; i++, s++) {
             for (int j = 0; j < BACKGROUND_WIDTH; j++, s++) {
-                gameWorld[i][j] = background[i][j];
+                gameWorld[i][j] = backgroundPicture[i][j];
             }
         }
     }
 
     public void paintCharacterToGameWorld() {
-        for (int i = 0, y = (int) player.getRoundedPlayerYPos(); i < character.length; i++, y++) {
-            for (int j = 0, x = (int) player.getRoundedPlayerXPos(); j < character[0].length; j++, x++) {
-                if(!Objects.equals(character[i][j],"#ffff00ff"))
-                    gameWorld[y][x] = character[i][j];
+        for (int i = 0, y = (int) player.getRoundedPlayerYPos(); i < characterPicture.length; i++, y++) {
+            for (int j = 0, x = (int) player.getRoundedPlayerXPos(); j < characterPicture[0].length; j++, x++) {
+                if(!Objects.equals(characterPicture[i][j],"#ffff00ff"))
+                    gameWorld[y][x] = characterPicture[i][j];
             }
         }
+    }
+
+    public void paintBombsToGameWorld() {
+            for (int i = 0, y = (int) bombs.get(0).getRoundedBombYPos(); i < bombPicture.length; i++, y++) {
+                for (int j = 0, x = (int) bombs.get(0).getRoundedBombXPos(); j < bombPicture[0].length; j++, x++) {
+                    if(!Objects.equals(bombPicture[i][j],"#ffff00ff"))
+                        gameWorld[y][x] = bombPicture[i][j];
+                }
+            }
     }
 
     public void paintWorldToVisibleGameWorld() {

@@ -14,7 +14,7 @@ public class GameControl {
         pixelCanvas = new PixelCanvas();
         player = new Player();
         bombs = new ArrayList<Bomb>();
-        bombs.add(new Bomb(120, 110, 0, 0));
+        bombs.add(new Bomb(120, 110, 1, 0));
         injectDependencies();
         startGame();
     }
@@ -33,6 +33,13 @@ public class GameControl {
 
     public void tick() {
         player.movePlayer(2);
+        moveBombs();
         pixelCanvas.repaintPixelCanvas();
+    }
+
+    public void moveBombs() {
+        for (int i = 0; i < bombs.size(); i++) {
+            bombs.get(i).moveBomb(1);
+        }
     }
 }
