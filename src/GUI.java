@@ -83,7 +83,7 @@ public class GUI {
                 player.setPlayerYSpeed(getYSpeed((getHorizontalDistanceOfCharacterToMousePointer(e)), (getVerticalDistanceOfCharacterToMousePointer(e))));
             }
 
-            private double getHorizontalDistanceOfCharacterToMousePointer(MouseEvent e) {
+            private double getHorizontalDistanceOfCharacterToMousePointer(MouseEvent e) { // TODO extract these 2 methods and place them outside of addMouseListenerToFrame()
                 return (((e.getX() / 3) + PixelCanvas.cameraXPosition) - (player.getRoundedPlayerXPos())) - 4;
             }
 

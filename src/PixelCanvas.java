@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class PixelCanvas extends JPanel {
@@ -15,12 +17,14 @@ public class PixelCanvas extends JPanel {
     private static final int BACKGROUND_HEIGHT = 180;
     private static final int CHARACTER_WIDTH = 10; // CHARACTER_ refers to the dimensions of the picture file we use to create our game character
     private static final int CHARACTER_HEIGHT = 18;
-    static int cameraXPosition = 20; // This variable is used to decide where the "camera" is in the gameworld on the horizontal plane, i.e what pixels to show to the player
+    int cameraXPosition = 20; // This variable is used to decide where the "camera" is in the gameworld on the horizontal plane, i.e what pixels to show to the player
     private static String[][] background = new String[BACKGROUND_HEIGHT][BACKGROUND_WIDTH];
     private static int[][] backgroundCollisionMap = new int[BACKGROUND_HEIGHT][BACKGROUND_WIDTH];
     private static String[][] gameWorld = new String[BACKGROUND_HEIGHT][BACKGROUND_WIDTH];
     private static String[][] visibleGameWorld = new String[GAME_HEIGHT][GAME_WIDTH];
     private static String[][] character = new String[CHARACTER_HEIGHT][CHARACTER_WIDTH];
+    private ArrayList<Bomb> bombs;
+
 
     public PixelCanvas() throws IOException {
         setBackgroundFromFile();
@@ -162,6 +166,10 @@ public class PixelCanvas extends JPanel {
 
     public void injectPlayer(Player player) {
         this.player = player;
+    }
+
+    public void injectBombs(ArrayList<Bomb> bombs) {
+        this.bombs = bombs;
     }
 }
 
