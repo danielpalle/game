@@ -10,13 +10,16 @@ public class GameControl {
 
     public GameControl() throws IOException {
         tickTimer = new Timer(this);
-        gui = new GUI();
+        gui = new GUI(this);
         pixelCanvas = new PixelCanvas();
         player = new Player();
         bombs = new ArrayList<Bomb>();
-        bombs.add(new Bomb(120, 110, 1, 0));
         injectDependencies();
         startGame();
+    }
+
+    public void createNewBomb(double xPosition, double yPosition, double xSpeed, double ySpeed, PixelCanvas pixelCanvas) {
+        bombs.add(new Bomb(xPosition, yPosition, xSpeed, ySpeed, pixelCanvas));
     }
 
     public void injectDependencies() {
@@ -39,7 +42,7 @@ public class GameControl {
 
     public void moveBombs() {
         for (int i = 0; i < bombs.size(); i++) {
-            bombs.get(i).moveBomb(1);
+            bombs.get(i).moveBomb(2);
         }
     }
 }

@@ -139,12 +139,14 @@ public class PixelCanvas extends JPanel {
     }
 
     public void paintBombsToGameWorld() {
-            for (int i = 0, y = (int) bombs.get(0).getRoundedBombYPos(); i < bombPicture.length; i++, y++) {
-                for (int j = 0, x = (int) bombs.get(0).getRoundedBombXPos(); j < bombPicture[0].length; j++, x++) {
-                    if(!Objects.equals(bombPicture[i][j],"#ffff00ff"))
+        for (int k = 0; k < bombs.size(); k++) {
+            for (int i = 0, y = (int) bombs.get(k).getRoundedBombYPos(); i < bombPicture.length; i++, y++) {
+                for (int j = 0, x = (int) bombs.get(k).getRoundedBombXPos(); j < bombPicture[0].length; j++, x++) {
+                    if (!Objects.equals(bombPicture[i][j], "#ffff00ff"))
                         gameWorld[y][x] = bombPicture[i][j];
                 }
             }
+        }
     }
 
     public void paintWorldToVisibleGameWorld() {
@@ -174,8 +176,8 @@ public class PixelCanvas extends JPanel {
     }
 
     private Color decodeHexWithAlpha(String nm) throws NumberFormatException {
-        Long intval = Long.decode(nm);
-        Long i = intval.longValue();
+        Long intVal = Long.decode(nm);
+        Long i = intVal.longValue();
 
         long la = (i >> 24) & 0xff;
         int a = (int) la;

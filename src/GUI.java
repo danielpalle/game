@@ -7,11 +7,16 @@ import java.awt.event.MouseEvent;
 import java.lang.Math;
 
 public class GUI {
+    GameControl gameControl;
     PixelCanvas pixelCanvas;
     Player player;
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     JFrame frame = new JFrame();
     JPanel rightBorder = new JPanel();
+
+    public GUI (GameControl gameControl) {
+        this.gameControl = gameControl;
+    }
 
     public void injectPixelCanvasAndPlayer(PixelCanvas pixelcanvas, Player player) {
         this.pixelCanvas = pixelcanvas;
@@ -79,8 +84,13 @@ public class GUI {
         pixelCanvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                System.out.println(getYSpeed(getHorizontalDistanceOfCharacterToMousePointer(e), getVerticalDistanceOfCharacterToMousePointer(e)));
-                player.setPlayerYSpeed(getYSpeed((getHorizontalDistanceOfCharacterToMousePointer(e)), (getVerticalDistanceOfCharacterToMousePointer(e))));
+                //System.out.println(getYSpeed(getHorizontalDistanceOfCharacterToMousePointer(e), getVerticalDistanceOfCharacterToMousePointer(e)));
+                //player.setPlayerYSpeed(getYSpeed((getHorizontalDistanceOfCharacterToMousePointer(e)), (getVerticalDistanceOfCharacterToMousePointer(e))));
+
+                gameControl.createNewBomb(player.getRoundedPlayerXPos(),
+                        player.getRoundedPlayerYPos(),
+                        getXSpeed(getHorizontalDistanceOfCharacterToMousePointer(e), getVerticalDistanceOfCharacterToMousePointer(e))*2,
+                        getYSpeed(getHorizontalDistanceOfCharacterToMousePointer(e), getVerticalDistanceOfCharacterToMousePointer(e))*2, pixelCanvas);
             }
 
             private double getHorizontalDistanceOfCharacterToMousePointer(MouseEvent e) { // TODO extract these 2 methods and place them outside of addMouseListenerToFrame()
